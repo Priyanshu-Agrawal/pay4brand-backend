@@ -1,9 +1,9 @@
-const {sqlUtils, jwtUtils} = require("../../../Utilities");
+const {SQL, jwtUtils} = require("../../../Utilities");
 const router = require('express').Router();
 
 router.post('/', async(req, res)=>{
 	try{
-		const result = await sqlUtils.execProc(req.body, 'AuthenticateUser');
+		const result = await SQL.execProcWithBody(req.body, 'AuthenticateUser');
 		if(result["output"]["Status"] === "Success"){
 			res.send({...result , token: jwtUtils.signToken(result["output"]["Data"])})
 		}else{

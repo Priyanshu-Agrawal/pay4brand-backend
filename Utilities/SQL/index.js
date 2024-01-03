@@ -1,11 +1,10 @@
-const sql = require('mssql');
-const config = require('../../config/sqlConnection');
+const {sql, connection, procedures} = require('../../config/SQL');
 
 let pool;
 
 const getPool = async () => {
   if (!pool) {
-    pool = await sql.connect(config);
+    pool = await sql.connect(connection);
   }
   return pool;
 };
@@ -17,7 +16,7 @@ const runQuery = async (query) => {
     return result.recordset ?? result;
   } catch (err) {
     console.error('Error:', err);
-    return errorsExtractor(err);
+    return errorExtractor(err);
   }
 };
 
@@ -49,7 +48,7 @@ const execProcWithBody = async (requestBody, procName) => {
 	try{
 		const pool = await getPool();
 		const request = pool.request();
-		const procedure = require('../../config/procedures')[procName];
+		const procedure = procedures[procName];
 		procedure.parameters.map(({direction, paramName, type, reqKey})=>{
 			if(direction === 'input'){
 				request.input(paramName, type , requestBody[reqKey]);
@@ -62,7 +61,7 @@ const execProcWithBody = async (requestBody, procName) => {
 		return result;
 	} catch (err){
 		console.error('Error:', err);
-		return errorsExtractor(err);
+		return errorExtractor(err);
 	}
 }
 
@@ -90,12 +89,12 @@ const runProcedure = async (procedureName, params) => {
 		return result.recordset ?? result
 	} catch (err) {
 		console.error('Error:', err)
-		return errorsExtractor(err)
+		return errorExtractor(err)
 	}
 }
 
 
-const errorsExtractor = async (errorObject) =>{
+const errorExtractor = async (errorObject) =>{
 	// const errorMessages = [errorObject.message, ...errorObject.precedingErrors.map(error => error.message)]
 	return errorObject;
 }

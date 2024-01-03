@@ -1,4 +1,4 @@
 module.exports = {
-	sqlUtils: require('./sqlControls'),
+	SQL: require('./SQL'),
 	jwtUtils: require('./JWT')
 }

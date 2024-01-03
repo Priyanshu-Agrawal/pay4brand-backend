@@ -1,28 +1,20 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 const multer = require('multer');
 const upload = multer({dest: 'uploads/'})
 
-
-
-router.use('/auth/register', require('./auth/Register'));
-router.use('/auth/login', require('./auth/Login'));
+router.use('/auth', require('./auth'));
 router.use('/home', require('./home'));
+router.use('/business', require('./seller'));
+router.use('/products', require('./products'));
+router.use('/user', require('./user'));
 
 /* GET home page. */
 router.get('/', function (req, res) {
 	res.render('index', {title: 'Express'});
 });
 
-
-
-router.get('/upload-test', (req, res) => {
-	console.log("requested")
-	res.send('recieved')
-})
-
 router.post('/upload-test', upload.single('file'),(req, res) => {
-	console.log("request recieved")
+	console.log("request received")
   console.log("Uploaded file:", req.file.filename);
   res.send(`File uploaded successfully: ${req.file.filename}`);
 });

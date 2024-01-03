@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const sqlUtils = require('../../../Utilities/sqlControls');
+const {SQL} = require('../../../Utilities');
 
 router.post('/', async (req, res)=>{
 	try{
-		const result = await sqlUtils.execProc(req.body, 'RegisterUser');
+		const result = await SQL.execProcWithBody(req.body, 'RegisterUser');
 		if(result.output.Status === "Success"){
 			res.status(200).send(result)
 		}else{
