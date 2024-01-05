@@ -5,6 +5,7 @@ module.exports = {
     server: process.env.DB_HOST, 
     database: process.env.DB_NAME,
     options: {
-        encrypt: false // Disable SSL/TLS encryption
+        encrypt: false ,
+        trustServerCertificate: true
     }
 }

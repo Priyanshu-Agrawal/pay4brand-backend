@@ -9,4 +9,6 @@ module.exports = {
 	FetchCategoriesAndSubcategories: require('./Fetch'),
 	AddProductToCart: require('./AddProductToCart'),
 	GetCart: require('./FetchByUserID'),
+	GetWishlist: require('./FetchByUserID'),
+	AddProductToWishlist: require('./AddProductToWishlist'),
 }
