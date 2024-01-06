@@ -51,7 +51,11 @@ const execProcWithBody = async (requestBody, procName) => {
 		const procedure = procedures[procName];
 		procedure.parameters.map(({direction, paramName, type, reqKey})=>{
 			if(direction === 'input'){
-				request.input(paramName, type , requestBody[reqKey]);
+				let value = requestBody[reqKey];
+				if (Array.isArray(value)) {
+					value = value.join(',');
+				}
+				request.input(paramName, type , value);
 			}else if (direction === 'output'){
 				request.output(paramName, type);
 			}

@@ -11,5 +11,6 @@ module.exports = {
 	GetCart: require('./FetchByUserID'),
 	GetWishlist: require('./FetchByUserID'),
 	AddProductToWishlist: require('./AddProductToWishlist'),
-	GetUserInfo: require('./FetchByUserID')
+	GetUserInfo: require('./FetchByUserID'),
+	FilterProducts: require('./FilterProducts'),
 }

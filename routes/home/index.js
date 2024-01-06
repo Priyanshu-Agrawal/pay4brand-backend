@@ -29,7 +29,7 @@ router.post('/', async(req, res)=>{
 			SQL.execProcWithBody(req.body, 'GetTopSellingProducts'),
 			SQL.execProcWithBody(req.body, 'GetNewArrivals'),
 		]).then((results)=>{
-			if(results[0]["output"]["Status"] === "Success" && results[1]["output"]["Status"] === "Success"){
+			if(results[0]?.["output"]?.["Status"] === "Success" && results[1]?.["output"]?.["Status"] === "Success"){
 				res.send({
 					"TopSellingProducts": results[0]["recordsets"][0],
 					"NewArrivals": results[1]["recordsets"][0],
